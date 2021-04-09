@@ -6,7 +6,7 @@ import {
   ServiceMethods,
 } from "@feathersjs/feathers";
 import { Application } from "../../declarations";
-import {plot} from '../../axidraw/run'
+import {plot, disable} from '../../axidraw/run'
 
 interface Data {}
 
@@ -59,6 +59,7 @@ export class Scribe implements ServiceMethods<Data> {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async remove(id: NullableId, params?: Params): Promise<Data> {
+    disable()
     return { id };
   }
 }
