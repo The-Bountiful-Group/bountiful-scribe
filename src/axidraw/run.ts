@@ -9,7 +9,12 @@ export const plot = ({filename}:{filename:string}) => {
     })
 }
 
+export const disable = () => {
+  run(`axicli --mode manual --manual_cmd disable_xy`)
+}
+
 
 export default {
-    plot
+    plot,
+    disable
 }
