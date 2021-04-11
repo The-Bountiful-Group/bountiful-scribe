@@ -6,7 +6,7 @@ import {
   ServiceMethods,
 } from "@feathersjs/feathers";
 import { Application } from "../../declarations";
-import {plot, disable} from '../../axidraw/run'
+import { plot, disable } from "../../axidraw/run";
 
 interface Data {}
 
@@ -36,13 +36,34 @@ export class Scribe implements ServiceMethods<Data> {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async create(data: any, params?: Params): Promise<Data> {
-    if (Array.isArray(data)) {
+    if (Array.isArray(data))
       return Promise.all(data.map((current) => this.create(current, params)));
-    }
 
-    console.log(data)
-    plot({filename:data.filename})
-    
+    const {
+      filename,
+      pen_pos_down,
+      pen_pos_up,
+      speed_pendown,
+      speed_penup,
+      accel,
+      pen_rate_lower,
+      pen_rate_raise,
+      pen_delay_down,
+      pen_delay_up,
+    } = data;
+
+    plot({
+      filename,
+      pen_pos_down,
+      pen_pos_up,
+      speed_pendown,
+      speed_penup,
+      accel,
+      pen_rate_lower,
+      pen_rate_raise,
+      pen_delay_down,
+      pen_delay_up,
+    });
 
     return data;
   }
@@ -59,7 +80,7 @@ export class Scribe implements ServiceMethods<Data> {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async remove(id: NullableId, params?: Params): Promise<Data> {
-    disable()
+    disable();
     return { id };
   }
 }
