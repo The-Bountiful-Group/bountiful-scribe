@@ -1,3 +1,4 @@
+import { Plot_params } from "./../../axidraw/run";
 import {
   Id,
   NullableId,

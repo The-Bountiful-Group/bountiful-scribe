@@ -14,7 +14,7 @@ const default_plot_settings = {
   pen_delay_up: 0,
 };
 
-interface Plot_params {
+export interface Plot_params {
   filename: string;
   speed_pendown?: number;
   speed_penup?: number;
@@ -39,9 +39,23 @@ export const plot = (params: Plot_params) => {
     pen_rate_raise,
     pen_delay_down,
     pen_delay_up,
-  } = { ...default_plot_settings, ...params };
+  } = params;
   run(
-    `axicli ./src/axidraw/${filename} --speed_pendown ${speed_pendown} --speed_penup ${speed_penup} --accel ${accel} --pen_pos_down ${pen_pos_down} --pen_pos_up ${pen_pos_up} --pen_rate_lower ${pen_rate_lower} --pen_rate_raise ${pen_rate_raise} --pen_delay_down ${pen_delay_down} --pen_delay_up ${pen_delay_up}`,
+    `axicli ./src/axidraw/${filename} --speed_pendown ${
+      speed_pendown || default_plot_settings.speed_pendown
+    } --speed_penup ${
+      speed_penup || default_plot_settings.speed_penup
+    } --accel ${accel || default_plot_settings.accel} --pen_pos_down ${
+      pen_pos_down || default_plot_settings.pen_pos_down
+    } --pen_pos_up ${
+      pen_pos_up || default_plot_settings.pen_pos_up
+    } --pen_rate_lower ${
+      pen_rate_lower || default_plot_settings.pen_rate_lower
+    } --pen_rate_raise ${
+      pen_rate_raise || default_plot_settings.pen_rate_raise
+    } --pen_delay_down ${
+      pen_delay_down || default_plot_settings.pen_delay_down
+    } --pen_delay_up ${pen_delay_up || default_plot_settings.pen_delay_up}`,
     (err, data, stderr) => {
       console.log(err, data, stderr);
     }
